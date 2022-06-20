@@ -1,17 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Farm managment System</title>
-</head>
-<body>
-    <h1>Welcome</h1>
-    <ul>
-    <% for(let value of values ){ %>
-        <li>Values: <%= value.value %> </li>
-        <% } %>
-    </ul>  
-</body>
-</html>
+<% layout("layout/boilerplate") %>
+    <link rel="stylesheet" href="css/index.css">
+    <h1 class="text-center mb-5">Moniter Your Farm</h1>
+    <div class="container">
+        <div class="row justify-content-around">
+            <div class="card col-md-4">
+                <div class="card-body">
+                    <h5 class="card-title">Humidity</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        Current Humidity:<%= humidityValue[0].value %>
+                    </h6>
+                    <p class="card-text">Humidity
+                        <%= humidityValue[1].value<humidityValue[0].value ? "increased by" :"decresed by" %>
+                            <%= Math.abs(humidityValue[1].value-humidityValue[0].value) %>
+                    </p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+            <div class="card col-md-4">
+                <div class="card-body">
+                    <h5 class="card-title">Temperature</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        Current Temperature:<%= tempValue[0].value %>
+                    </h6>
+                    <p class="card-text">Temperature
+                        <%= tempValue[1].value<tempValue[0].value ? "increased by" :"decresed by" %>
+                            <%= Math.abs(tempValue[1].value-tempValue[0].value) %>
+                    </p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </div>
+    </div>
