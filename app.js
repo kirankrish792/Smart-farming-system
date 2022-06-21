@@ -5,9 +5,10 @@ const axios = require("axios").default
 const engine = require('ejs-mate');
 
 
-app.engine('ejs', engine);
+
 
 app.set('view engine', "ejs")
+app.engine('ejs', engine);
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -49,7 +50,7 @@ app.get("/monitor/humidity", async (req, res) => {
 
 })
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
     console.log('connected to port 3000');
 })
 
