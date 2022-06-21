@@ -19,13 +19,35 @@ app.get("/", async (req, res) => {
 })
 
 app.get("/monitor", async (req, res) => {
-    const Temp = await axios.get("https://io.adafruit.com/api/v2/pravi587/feeds/temperature/data?X-AIO-Key=aio_NKPG68UIEgYhotbRZEmg6WBy2ZOL")
-    const Humidity = await axios.get("https://io.adafruit.com/api/v2/pravi587/feeds/humidity/data?X-AIO-Key=aio_NKPG68UIEgYhotbRZEmg6WBy2ZOL")
+    const Temp = await axios.get("https://io.adafruit.com/api/v2/pravi587/feeds/temperature/data?X-AIO-Key=aio_DEfp28yizJSBSiwRCIfxPR6AgC6i")
+    const Humidity = await axios.get("https://io.adafruit.com/api/v2/pravi587/feeds/humidity/data?X-AIO-Key=aio_DEfp28yizJSBSiwRCIfxPR6AgC6i")
     const tempValue = Temp.data
     const humidityValue = Humidity.data
     res.render("index", { tempValue, humidityValue })
 })
 
+app.get("/monitor/temp", async (req, res) => {
+    const Temp = await axios.get("https://io.adafruit.com/api/v2/pravi587/feeds/temperature/data?X-AIO-Key=aio_DEfp28yizJSBSiwRCIfxPR6AgC6i")
+    const tempValue = Temp.data
+    let avg = 0
+    for (let i = 0; i < tempValue.length; i++) {
+        avg += parseFloat(tempValue[i].value)
+    }
+    avg = avg / tempValue.length
+    res.render("temp", { tempValue, avg })
+})
+
+app.get("/monitor/humidity", async (req, res) => {
+    const Humidity = await axios.get("https://io.adafruit.com/api/v2/pravi587/feeds/humidity/data?X-AIO-Key=aio_DEfp28yizJSBSiwRCIfxPR6AgC6i")
+    const humidityValue = Humidity.data
+    let avg = 0
+    for (let i = 0; i < humidityValue.length; i++) {
+        avg += parseFloat(humidityValue[i].value)
+    }
+    avg = avg / humidityValue.length
+    res.render("humidity", { humidityValue, avg })
+
+})
 
 app.listen(3000, () => {
     console.log('connected to port 3000');

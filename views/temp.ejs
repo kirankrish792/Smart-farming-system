@@ -1,0 +1,31 @@
+<% layout("layout/boilerplate") %>
+    <h1 class="text-center">Temperature Data</h1>
+    <div class="container">
+        <div class="row">
+            <% tempValue.forEach((temp,index)=>{ %>
+
+                <div class="list-group">
+                    <% if(index===0){ %>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-danger"
+                                aria-current="true">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Average Temperature: <%= avg.toFixed(2) %>
+                                    </h5>
+                                </div>
+                                <!-- <p class="mb-1">Time : <%= Date(temp.created_at).toString() %></small> -->
+                            </a>
+                        </div>
+                        <% } %>
+                            <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Temperature Value: <%= temp.value %>
+                                    </h5>
+                                </div>
+                                <p class="mb-1">Time : <%= Date(temp.created_at).toString() %></small>
+                            </a>
+                </div>
+
+                <% }) %>
+        </div>
+    </div>
