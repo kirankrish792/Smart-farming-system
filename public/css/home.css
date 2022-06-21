@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 
 * {
     margin: 0;
@@ -41,6 +40,6 @@ body {
     text-shadow: 2px 2px #000;
 }
 
-.content p {
+.content {
     width: 50%;
 }
