@@ -57,7 +57,7 @@ app.get("/monitor/humidity", async (req, res) => {
 app.post("/monitor/humidity/:id",async(req,res)=>{
     const {id} = req.params
     const deletedData = await axios.delete(`https://io.adafruit.com/api/v2/${process.env.ADAFRUIT_IO_USERNAME}/feeds/humidity/data/${id}?X-AIO-Key=${process.env.ADAFRUIT_IO_KEY}`)
-    res.redirect('/monitor/humidit/')
+    res.redirect('/monitor/humidity/')
 })
 app.post("/monitor/temp/:id",async(req,res)=>{
     const {id} = req.params
