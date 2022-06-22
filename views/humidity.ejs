@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row justify-content-center" >
             <% humidityValue.forEach((temp,index)=>{ %>
-                <div class="list-group" style="width:60%">
+                
                     <% if(index===0){ %>
                         <div class="list-group">
                             <a href="#" class="list-group-item list-group-item-action list-group-item-danger"
@@ -16,6 +16,7 @@
                             </a>
                         </div>
                         <% } %>
+                        <div class="list-group col-md-6">
                             <div class="list-group-item list-group-item-action mb-2 active" aria-current="true">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h4 class="mb-1">Humidity Value: <%= temp.value %>
