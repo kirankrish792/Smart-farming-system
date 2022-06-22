@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 const express = require('express');
 const app = express();
 const path = require("path")
@@ -20,15 +24,15 @@ app.get("/", (req, res) => {
 })
 
 app.get("/monitor", async (req, res) => {
-    const Temp = await axios.get("https://io.adafruit.com/api/v2/pravi587/feeds/temperature/data?X-AIO-Key=aio_DEfp28yizJSBSiwRCIfxPR6AgC6i")
-    const Humidity = await axios.get("https://io.adafruit.com/api/v2/pravi587/feeds/humidity/data?X-AIO-Key=aio_DEfp28yizJSBSiwRCIfxPR6AgC6i")
+    const Temp = await axios.get(`https://io.adafruit.com/api/v2/${process.env.ADAFRUIT_IO_USERNAME}/feeds/temperature/data?X-AIO-Key=${process.env.ADAFRUIT_IO_KEY}`)
+    const Humidity = await axios.get(`https://io.adafruit.com/api/v2/${process.env.ADAFRUIT_IO_USERNAME}/feeds/humidity/data?X-AIO-Key=${process.env.ADAFRUIT_IO_KEY}`)
     const tempValue = Temp.data
     const humidityValue = Humidity.data
     res.render("index", { tempValue, humidityValue })
 })
 
 app.get("/monitor/temp", async (req, res) => {
-    const Temp = await axios.get("https://io.adafruit.com/api/v2/pravi587/feeds/temperature/data?X-AIO-Key=aio_DEfp28yizJSBSiwRCIfxPR6AgC6i")
+    const Temp = await axios.get(`https://io.adafruit.com/api/v2/${process.env.ADAFRUIT_IO_USERNAME}/feeds/temperature/data?X-AIO-Key=${process.env.ADAFRUIT_IO_KEY}`)
     const tempValue = Temp.data
     let avg = 0
     for (let i = 0; i < tempValue.length; i++) {
@@ -39,7 +43,7 @@ app.get("/monitor/temp", async (req, res) => {
 })
 
 app.get("/monitor/humidity", async (req, res) => {
-    const Humidity = await axios.get("https://io.adafruit.com/api/v2/pravi587/feeds/humidity/data?X-AIO-Key=aio_DEfp28yizJSBSiwRCIfxPR6AgC6i")
+    const Humidity = await axios.get(`https://io.adafruit.com/api/v2/${process.env.ADAFRUIT_IO_USERNAME}/feeds/humidity/data?X-AIO-Key=${process.env.ADAFRUIT_IO_KEY}`)
     const humidityValue = Humidity.data
     let avg = 0
     for (let i = 0; i < humidityValue.length; i++) {
@@ -52,18 +56,18 @@ app.get("/monitor/humidity", async (req, res) => {
 
 app.post("/monitor/humidity/:id",async(req,res)=>{
     const {id} = req.params
-    const deletedData = await axios.delete(`https://io.adafruit.com/api/v2/pravi587/feeds/humidity/data/${id}?X-AIO-Key=aio_DEfp28yizJSBSiwRCIfxPR6AgC6i`)
+    const deletedData = await axios.delete(`https://io.adafruit.com/api/v2/${process.env.ADAFRUIT_IO_USERNAME}/feeds/humidity/data/${id}?X-AIO-Key=${process.env.ADAFRUIT_IO_KEY}`)
     res.redirect('/monitor/humidit/')
 })
 app.post("/monitor/temp/:id",async(req,res)=>{
     const {id} = req.params
-    const deletedData = await axios.delete(`https://io.adafruit.com/api/v2/pravi587/feeds/temperature/data/${id}?X-AIO-Key=aio_DEfp28yizJSBSiwRCIfxPR6AgC6i`)
+    const deletedData = await axios.delete(`https://io.adafruit.com/api/v2/${process.env.ADAFRUIT_IO_USERNAME}/feeds/temperature/data/${id}?X-AIO-Key=${process.env.ADAFRUIT_IO_KEY}`)
     res.redirect('/monitor/temp')
 })
 
 const port = process.env.PORT || 3000
 
 app.listen(port, () => {
-    console.log('connected to port 3000');
+    console.log(`connected to port ${port}`);
 })
 
