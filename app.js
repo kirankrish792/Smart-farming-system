@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }))
 
 
-app.get("/", async (req, res) => {
+app.get("/", (req, res) => {
     res.render('home')
 })
 
@@ -50,7 +50,20 @@ app.get("/monitor/humidity", async (req, res) => {
 
 })
 
-app.listen(process.env.PORT, () => {
+app.post("/monitor/humidity/:id",async(req,res)=>{
+    const {id} = req.params
+    const deletedData = await axios.delete(`https://io.adafruit.com/api/v2/pravi587/feeds/humidity/data/${id}?X-AIO-Key=aio_DEfp28yizJSBSiwRCIfxPR6AgC6i`)
+    res.redirect('/monitor/humidit/')
+})
+app.post("/monitor/temp/:id",async(req,res)=>{
+    const {id} = req.params
+    const deletedData = await axios.delete(`https://io.adafruit.com/api/v2/pravi587/feeds/temperature/data/${id}?X-AIO-Key=aio_DEfp28yizJSBSiwRCIfxPR6AgC6i`)
+    res.redirect('/monitor/temp')
+})
+
+const port = process.env.PORT || 3000
+
+app.listen(port, () => {
     console.log('connected to port 3000');
 })
 
