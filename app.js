@@ -6,7 +6,6 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const app = express();
 const path = require("path")
-const axios = require("axios").default
 const engine = require('ejs-mate');
 
 
@@ -40,8 +39,8 @@ app.all('*', (req, res, next) => {
 })
 
 app.use((err, req, res, next) => {
-    const statusCode = err.statusCode || 500
-    if (!err.message) err.message = 'Something went wrong';
+    const statusCode = err.statusCode || err.response.status || 500
+    err.message = err.message || 'Something went wrong';
     res.status(statusCode).render('error', { err, statusCode })
 })
 

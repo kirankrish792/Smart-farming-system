@@ -8,7 +8,7 @@
                 <%= err.message %>
             </p>
             <p class="lead">
-                <%= err.stack %>
+                <%= err.stack || err.response.data.error %>
             </p>
             <a href="/monitor" class="btn btn-primary">Go Home</a>
         </div>
