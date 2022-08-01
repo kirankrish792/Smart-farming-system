@@ -164,11 +164,11 @@
                       <div class="col-9">
                         <div class="d-flex align-items-center align-self-start">
                           <h3 class="mb-0"><%= humidityValue[0].value %></h3>
-                          <p class="text-success ms-2 mb-0 font-weight-medium"><%= humidityValue[1].value-humidityValue[0].value %></p>
+                          <p class="text-<%= humidityValue[0].value-humidityValue[1].value < 0 ? "danger" : "success" %> ms-2 mb-0 font-weight-medium"><%= humidityValue[0].value-humidityValue[1].value %></p>
                         </div>
                       </div>
                       <div class="col-3">
-                         <% if(humidityValue[0].value-humidityValue[1].value > 0){  %>
+                         <% if(humidityValue[0].value-humidityValue[1].value < 0){  %>
                         <div class="icon icon-box-danger">
                           <span class="mdi mdi-arrow-bottom-left icon-item"></span>
                         </div>
@@ -190,11 +190,11 @@
                       <div class="col-9">
                         <div class="d-flex align-items-center align-self-start">
                           <h3 class="mb-0"><%= tempValue[0].value %></h3>
-                          <p class="text-<%= tempValue[0].value-tempValue[1].value > 0 ? "danger" : "success" %> ms-2 mb-0 font-weight-medium"><%= tempValue[1].value-tempValue[0].value %></p>
+                          <p class="text-<%= tempValue[0].value-tempValue[1].value < 0 ? "danger" : "success" %> ms-2 mb-0 font-weight-medium"><%= tempValue[0].value-tempValue[1].value %></p>
                         </div>
                       </div>
                       <div class="col-3">
-                         <% if(tempValue[0].value-tempValue[1].value > 0){  %>
+                         <% if(tempValue[0].value-tempValue[1].value < 0){  %>
                         <div class="icon icon-box-danger">
                           <span class="mdi mdi-arrow-bottom-left icon-item"></span>
                         </div>
@@ -216,11 +216,11 @@
                       <div class="col-9">
                         <div class="d-flex align-items-center align-self-start">
                           <h3 class="mb-0"><%= moistureValue[0].value %> </h3>
-                          <p class="text-<%= moistureValue[0].value-moistureValue[1].value > 0 ? "danger" : "success" %>  ms-2 mb-0 font-weight-medium"><%= moistureValue[1].value-moistureValue[0].value %></p>
+                          <p class="text-<%= moistureValue[0].value-moistureValue[1].value < 0 ? "danger" : "success" %>  ms-2 mb-0 font-weight-medium"><%= moistureValue[0].value-moistureValue[1].value %></p>
                         </div>
                       </div> 
                       <div class="col-3">
-                        <% if(moistureValue[0].value-moistureValue[1].value > 0){  %>
+                        <% if(moistureValue[0].value-moistureValue[1].value < 0){  %>
                         <div class="icon icon-box-danger">
                           <span class="mdi mdi-arrow-bottom-left icon-item"></span>
                         </div>
