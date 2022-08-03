@@ -1,0 +1,36 @@
+<% layout("layout/boilerplate") %>
+<h1 class="text-center">humidity Data</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <% humidityValue.forEach((temp,index)=>{ %> <% if(index===0){ %>
+    <div class="list-group">
+      <a
+        href="#"
+        class="list-group-item list-group-item-action list-group-item-danger"
+        aria-current="true"
+      >
+        <div class="d-flex w-100 justify-content-center">
+          <h5 class="mb-1">Average Soil Temperature: <%= avg.toFixed(2) %></h5>
+        </div>
+        <!-- <p class="mb-1">Time : <%= Date(temp.created_at).toString() %></small> -->
+      </a>
+    </div>
+    <% } %>
+    <div class="list-group col-md-6">
+      <div
+        class="list-group-item list-group-item-action mb-2 active"
+        aria-current="true"
+      >
+        <div class="d-flex w-100 justify-content-between">
+          <h4 class="mb-1">Soil Temperature Value: <%= temp.value %></h4>
+        </div>
+        <p class="mb-1">Time : <%= temp.created_at.replace(/[TZ]/g," ") %></p>
+        <form action=" /monitor/humidity/<%=temp.id %> " method="post">
+          <button class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+
+    <% }) %>
+  </div>
+</div>

@@ -98,6 +98,14 @@
               <span class="menu-title">Moisture-data</span>
             </a>
           </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="/monitor/soiltemp">
+              <span class="menu-icon">
+                <i class="mdi mdi-weather-hail"></i>
+              </span>
+              <span class="menu-title">Soil Temperature-data</span>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- partial -->
@@ -137,8 +145,14 @@
                   <a class="dropdown-item preview-item">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-calendar text-success"></i>
+                        <i class="mdi mdi-water-pump"></i>
                       </div>
+                      <span><% if(moistureValue[0].value<38) {%>
+                        Pump is working
+                        <% } else {%>
+                          Pump is off
+                        <% } %> 
+                        </span>
                     </div>
                     <div class="preview-item-content">
                       <!-- <p class="preview-subject mb-1">Event today</p>
@@ -239,6 +253,32 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="row">
+                      <div class="col-9">
+                        <div class="d-flex align-items-center align-self-start">
+                          <h3 class="mb-0"><%= soilTempValue[0].value %></h3>
+                          <p class="text-<%= soilTempValue[0].value-soilTempValue[1].value < 0 ? "danger" : "success" %> ms-2 mb-0 font-weight-medium"><%= soilTempValue[0].value-soilTempValue[1].value %></p>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                         <% if(soilTempValue[0].value-soilTempValue[1].value < 0){  %>
+                        <div class="icon icon-box-danger">
+                          <span class="mdi mdi-arrow-bottom-left icon-item"></span>
+                        </div>
+                        <% } else { %>
+                          <div class="icon icon-box-success">
+                          <span class="mdi mdi-arrow-top-right icon-item"></span>
+                        </div>
+                          <% } %>  
+                      </div>
+                    </div>
+                    <h6 class="text-muted font-weight-normal">Soil Temperature</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
                       <div class="col-6">
                         <div class="d-flex align-items-center align-self-start">
                           <h3 class="mb-0"><%= weDa.main %> </h3>
@@ -297,6 +337,11 @@ new Chart("myChart", {
       label:'Moisture',
       data: [<%= moisdata %>],
       borderColor: "blue",
+      fill: false
+    },{
+      label:'Soil temperature',
+      data: [<%= soilTempData %>],
+      borderColor: "yellow",
       fill: false
     }]
   },

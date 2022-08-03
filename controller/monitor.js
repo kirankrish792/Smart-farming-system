@@ -10,9 +10,16 @@ module.exports.monitorTempHumidity = async (req, res) => {
   const Moisture = await axios.get(
     `https://io.adafruit.com/api/v2/${process.env.ADAFRUIT_IO_USERNAME}/feeds/moisture/data?X-AIO-Key=${process.env.ADAFRUIT_IO_KEY}`
   );
+
+  const soilTemp = await axios.get(
+    `https://io.adafruit.com/api/v2/${process.env.ADAFRUIT_IO_USERNAME}/feeds/soiltemp/data?X-AIO-Key=${process.env.ADAFRUIT_IO_KEY}`
+  )
+
+
   const tempValue = Temp.data;
   const humidityValue = Humidity.data;
   const moistureValue = Moisture.data;
+  const soilTempValue = soilTemp.data;
 
   const temdata = tempValue.map((temp) =>
     temp.value !== "2147483647" ? parseFloat(temp.value) : 0
@@ -23,6 +30,8 @@ module.exports.monitorTempHumidity = async (req, res) => {
   const moisdata = moistureValue.map((moisture) =>
     moisture.value !== "2147483647" ? parseFloat(moisture.value) : 0
   );
+  const soilTempData = soilTempValue.map((temp)=> temp.value !== "-127" ? parseFloat(temp.value) : 0 )
+
   let count = 0;
   const finalTime = tempValue.map((temp) => {
     return ++count;
@@ -42,5 +51,7 @@ module.exports.monitorTempHumidity = async (req, res) => {
     moisdata,
     finalTime,
     weDa,
+    soilTempData,
+    soilTempValue
   });
 };

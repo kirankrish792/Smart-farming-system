@@ -16,6 +16,7 @@ const monitorRoute = require("./routes/monitor");
 const tempRoute = require("./routes/temp");
 const humidityRoute = require("./routes/humidity");
 const moistureRoute = require("./routes/moisture");
+const soilTempRoute = require("./routes/soilTemp");
 
 app.set("view engine", "ejs");
 app.engine("ejs", engine);
@@ -27,6 +28,9 @@ app.use("/monitor", monitorRoute);
 app.use("/monitor/temp", tempRoute);
 app.use("/monitor/humidity", humidityRoute);
 app.use("/monitor/moisture", moistureRoute);
+app.use("/monitor/soiltemp", soilTempRoute);
+
+
 app.use(compression());
 
 app.get("/", (req, res) => {
@@ -43,7 +47,7 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("error", { err, statusCode });
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3004;
 
 app.listen(port, () => {
   console.log(`connected to port ${port}`);
